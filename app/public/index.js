@@ -2,16 +2,14 @@
 var app = angular.module("app", ["firebase"]);
 
 // Set up controller function
-app.controller("Ctrl", function($scope, $firebase) {
+app.controller("Ctrl", function($scope, $firebaseObject) {
     var firebaseRef = new Firebase(
       // Replace this fictional URL with your own
-      "https://burning-limbo-6666.firebaseio.com/colors"
+      "https://blinding-inferno-2589.firebaseio.com/colors"
     );
     // create an AngularFire ref to the data
-    var sync = $firebase(firebaseRef);
-
     // pull the data into a local model
-    var syncObject = sync.$asObject();
+    var syncObject = $firebaseObject(firebaseRef);
 
     // sync the object with three-way data binding
     syncObject.$bindTo($scope, "data");

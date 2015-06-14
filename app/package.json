@@ -6,8 +6,9 @@
   "author": "Joe Chasinga",
   "license": "MIT",
   "dependencies": {
+    "angularfire": "^1.1.1",
     "express": "3.4.8",
-    "socket.io": "latest",
-    "firebase": "^1.1.2"
+    "firebase": "^1.1.2",
+    "socket.io": "latest"
   }
 }
