@@ -19,9 +19,7 @@ five.Board().on("ready", function() {
   });
 
   // Create a new led array based on pin number
-  var led = new five.Led.RGB([11,10,9]);
-  led.on();
-  led.color("#FF0000");
+  var led = new five.Led.RGB([11,9,10]);
 
   // Listen on data change
   pot.on("data", function() {
@@ -41,64 +39,47 @@ five.Board().on("ready", function() {
     var greenDec = Math.round(five.Fn.map(self, offset*5, offset*6, 255, 0));
     var redInc   = Math.round(five.Fn.map(self, offset*4, offset*5, 0, 255));
 
-    /*console.log("redDec Value: " + redDec);
-    console.log("blueInc Value: " + blueInc);
-
-    console.log("blueDec Value: " + blueDec);
-    console.log("greenInc Value: " + greenInc);
-
-    console.log("greenDec Value: " + greenDec);
-    console.log("redInc Value: " + redInc);
-
-    console.log("********************************* ");*/
-
     // Adjusting color brightness conditionally based on
     // the location of the pot output value.
     switch (true) {
       case (self > 0 && self <= offset):
-        //console.log("1st loop");
-        led.on();
-        led.color(255,blueInc,0);
+        console.log("1st loop: 255, 0, " + blueInc);
+        led.color(255,0,blueInc);
       	// update firebase colors' child node r, g, b
       	firebaseRef.set({"r": 255, "b": blueInc, "g": 0});
         break;
       case (self > offset && self <= offset*2):
-        //console.log("2nd loop");
-        led.on();
-        led.color(redDec,255,0);
+        console.log("2nd loop: " + redDec + ", 0, 255");
+        led.color(redDec,0,255);
         // update firebase colors' child node r, g, b
         firebaseRef.set({"r": redDec, "b": 255, "g": 0});
 	break;
       case (self > offset*2 && self <= offset*3):
-        //console.log("3rd loop");
-        led.on();
-        led.color(0,255,greenInc);
+        console.log("3rd loop: 0, " + greenInc + ", 255");
+        led.color(0,greenInc,255);
       	// update firebase colors' child node r, g, b
       	firebaseRef.set({"r": 0, "b": 255, "g": greenInc});
 	break;
       case (self > offset*3 && self <= offset*4):
-        //console.log("4th loop");
-        led.on();
-        led.color(0,blueDec,255);
+        console.log("4th loop: 0, 255, " + blueDec);
+        led.color(0,255,blueDec);
       	// update firebase colors' child node r, g, b
       	firebaseRef.set({"r": 0, "b": blueDec, "g": 255});
         break;
       case (self > offset*4 && self <= offset*5):
-        //console.log("5th loop");
-        led.on();
-        led.color(redInc,0,255);
+        console.log("5th loop: " + redInc + ", 255, 0");
+        led.color(redInc,255,0);
       	// update firebase colors' child node r, g, b
       	firebaseRef.set({"r": redInc, "b": 0, "g": 255});
 	break;
       case (self > offset*5 && self <= offset*6):
-        //console.log("6th loop");
-        led.on();
-        led.color(255,0,greenDec);
+        console.log("6th loop: 255, " + greenDec + ", 0");
+        led.color(255,greenDec,0);
       	// update firebase colors' child node r, g, b
       	firebaseRef.set({"r": 255, "b": 0, "g": greenDec});
 	break;
       default:
-        //console.log("Out of range");
+        console.log("Out of range: 255, 0, 0");
         led.on();
         led.color(255,0,0);
       	// update firebase colors' child node r, g, b
